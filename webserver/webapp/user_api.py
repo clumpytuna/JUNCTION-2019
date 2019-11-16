@@ -22,13 +22,15 @@ def user_register(request):
         email = request.data.get('email')
         first_name = request.data.get('first_name')
         last_name = request.data.get('last_name')
+        residence = request.data.get('country')
     except KeyError:
         return Response(None, HTTP_400_BAD_REQUEST)
 
     try:
         user = JUser.objects.create_user(
             username=username, password=password,
-            email=email, first_name=first_name, last_name=last_name
+            email=email, first_name=first_name, last_name=last_name,
+            country=residence
         )
     except:
         return Response(None, HTTP_409_CONFLICT)
