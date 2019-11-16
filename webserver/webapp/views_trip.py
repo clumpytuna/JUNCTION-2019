@@ -48,7 +48,7 @@ def trip_step(request: Request):
         }))
 
     trip = api_trip.create_trip(home_country, interests, destinations)
-    return HttpResponseRedirect('/result?id={}'.format(trip.id))
+    return HttpResponseRedirect('/trip?id={}'.format(trip.id))
 
 
 def _trip_to_view(trip: Trip) -> dict:
