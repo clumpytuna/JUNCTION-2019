@@ -10,11 +10,9 @@ from rest_framework.status import \
     HTTP_201_CREATED, \
     HTTP_400_BAD_REQUEST, \
     HTTP_403_FORBIDDEN, \
-    HTTP_409_CONFLICT, \
-    HTTP_422_UNPROCESSABLE_ENTITY
+    HTTP_409_CONFLICT
 
 
-@api_view(['POST'])
 def user_register(request):
     try:
         username = request.data['username']
@@ -24,7 +22,7 @@ def user_register(request):
         last_name = request.data.get('last_name')
         residence = request.data.get('country')
     except KeyError:
-        return Response(None, HTTP_400_BAD_REQUEST)
+        return HTTP_400_BAD_REQUEST
 
     try:
         user = JUser.objects.create_user(
@@ -33,12 +31,12 @@ def user_register(request):
             country=residence
         )
     except:
-        return Response(None, HTTP_409_CONFLICT)
+        return HTTP_409_CONFLICT
 
     user.refresh_from_db()
     auth.login(request, user)
 
-    return Response(None, HTTP_201_CREATED)
+    return HTTP_201_CREATED
 
 
 @api_view(['POST'])
@@ -47,11 +45,11 @@ def user_sign_in(request):
         username = request.data['username']
         password = request.data['password']
     except KeyError:
-        return Response(None, HTTP_400_BAD_REQUEST)
+        return HTTP_400_BAD_REQUEST
 
     user = auth.authenticate(request, username=username, password=password)
     if user is None:
-        return Response(None, HTTP_403_FORBIDDEN)
+        return HTTP_403_FORBIDDEN
 
     auth.login(request, user)
-    return Response(None)
+    return 1
