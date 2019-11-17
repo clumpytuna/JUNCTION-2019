@@ -33,12 +33,12 @@ def _generate_trip(trip: Trip) -> Trip:
     previous_category_in_country = None
     for category_in_country in category_in_country_rs:
         if not(
-                previous_category_in_country is not None or
-                category_in_country.id_category != previous_category_in_country.id_category
+                previous_category_in_country is None or
+                category_in_country.id_category == previous_category_in_country.id_category
         ):
             continue
         previous_category_in_country = category_in_country
-        result[category_in_country.country_id].append(category_in_country)
+        result[category_in_country.id_country].append(category_in_country)
 
     # Get categories data. This requires us to make multiple SQL requests
     for country_id in result.keys():
@@ -47,7 +47,7 @@ def _generate_trip(trip: Trip) -> Trip:
             continue
         for i in range(len(result[country_id])):
             category_in_country = result[country_id][i]
-            category = Category.objects.get(category_in_country.id_category)
+            category = Category.objects.get(id=category_in_country.id_category)
             products = Product.objects.all().filter(id_category=category.id, id_country=country_id)
             home_category_rs = CategoryInCountry.objects.all().filter(id_category=category.id, id_country=trip.home_country)
             home_price = None

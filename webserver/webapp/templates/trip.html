@@ -39,6 +39,7 @@
                             </div>
                             <div>
                                 <form action="/trip" method="get" enctype="application/x-www-form-urlencoded">
+                                    <input type="checkbox" name="id" value="{{ id }}" style="display: none; visibility: hidden" checked>
                                     <input type="checkbox" name="country" value="{{ country.id }}" style="display: none; visibility: hidden" checked>
                                     <button class="btn btn-outline-primary btn-sm" type="submit">I'm here</button>
                                 </form>

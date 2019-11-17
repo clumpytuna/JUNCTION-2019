@@ -1,3 +1,5 @@
+import json
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect, HttpResponseBadRequest
 from django.template.loader import render_to_string
@@ -29,7 +31,7 @@ def trip_get(request: Request):
     if country_id is None:
         return HttpResponse(render_to_string('trip.html', _trip_to_view(trip)))
     else:
-        return HttpResponse(render_to_string('trip_in_country.html', _trip_to_view_in_country(trip)))
+        return HttpResponse(render_to_string('trip_in_country.html', _trip_to_view_in_country(trip, country_id)))
 
 
 @api_view(['GET'])
@@ -73,6 +75,7 @@ def _trip_to_view(trip: Trip) -> dict:
         .filter(id__in=trip.countries)
 
     return {
+        'id': trip.id,
         'countries': [
             {
                 'id': country.id,
@@ -90,7 +93,7 @@ def _trip_to_view_in_country(trip: Trip, country_id: str) -> dict:
     country_index = trip.countries.index(country_id)
     country = Country.objects.get(id=country_id)
     return {
-        'categories': trip.results[country_index],
+        'categories': json.loads(trip.results[country_index]),
         'country': {
             'id': country.id,
             'name': country.name,
