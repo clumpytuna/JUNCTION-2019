@@ -44,6 +44,7 @@ def _generate_trip(trip: Trip) -> Trip:
     for country_id in result.keys():
         if len(result[country_id]) == 0:
             result[country_id] = None
+            continue
         for i in range(len(result[country_id])):
             category_in_country = result[country_id][i]
             category = Category.objects.get(category_in_country.id_category)
