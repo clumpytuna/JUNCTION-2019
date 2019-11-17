@@ -49,10 +49,15 @@ def _generate_trip(trip: Trip) -> Trip:
             category_in_country = result[country_id][i]
             category = Category.objects.get(category_in_country.id_category)
             products = Product.objects.all().filter(id_category=category.id, id_country=country_id)
+            home_category_rs = CategoryInCountry.objects.all().filter(id_category=category.id, id_country=trip.home_country)
+            home_price = None
+            for home_category in home_category_rs:
+                home_price = home_category.price
+                break
+
             result_for_category_in_country = {
                 'id_category': category_in_country.id,
                 'name': category.name,
-                'description': category.description,
                 'price': category_in_country.price,
                 'products': [
                     {
@@ -60,6 +65,8 @@ def _generate_trip(trip: Trip) -> Trip:
                         'name': product.name,
                         'description': product.description,
                         'price': product.price,
+                        'home_price': 'Not available' if home_price is None else str(home_price),
+                        'savings': 'Not available' if home_price is None else str(int((float(home_price) / float(product.price)) * 100)) + '%',
                         'link': product.link,
                     }
                     for product in products

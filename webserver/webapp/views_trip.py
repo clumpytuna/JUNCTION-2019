@@ -25,7 +25,11 @@ def trip_get(request: Request):
     except ObjectDoesNotExist:
         return HttpResponseNotFound()
 
-    return HttpResponse(render_to_string('trip.html', _trip_to_view(trip)))
+    country_id = request.query_params.get('country')
+    if country_id is None:
+        return HttpResponse(render_to_string('trip.html', _trip_to_view(trip)))
+    else:
+        return HttpResponse(render_to_string('trip_in_country.html', _trip_to_view_in_country(trip)))
 
 
 @api_view(['GET'])
@@ -63,11 +67,34 @@ def trip_step(request: Request):
 
 def _trip_to_view(trip: Trip) -> dict:
     """
-    Transform a Trip object into a dictionary for the HTML template
+    Transform a Trip object into a dictionary for the HTML template for global (non-country-specific) view
     """
-    # TODO
+    country_rs = Country.objects.all()\
+        .filter(id__in=trip.countries)
+
     return {
-        'id': trip.id
+        'countries': [
+            {
+                'id': country.id,
+                'name': country.name
+            }
+            for country in country_rs if trip.results[trip.countries.index(country.id)] is not None
+        ]
+    }
+
+
+def _trip_to_view_in_country(trip: Trip, country_id: str) -> dict:
+    """
+    Transform a Trip object into a dictionary for the HTML template for country-specific view
+    """
+    country_index = trip.countries.index(country_id)
+    country = Country.objects.get(id=country_id)
+    return {
+        'categories': trip.results[country_index],
+        'country': {
+            'id': country.id,
+            'name': country.name,
+        },
     }
 
 

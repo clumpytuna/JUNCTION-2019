@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/fonts/simple-line-icons.min.css">
+    <link rel="stylesheet" href="assets/css/Footer-Dark.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
     <link rel="stylesheet" href="assets/css/menu-collapse-ultimate.css">
@@ -17,16 +19,8 @@
 
 <body>
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
-        <div class="container"><a class="navbar-brand logo" href="#">LocalLoot</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse"
-                id="navcol-1">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"></li>
-                    <li class="nav-item" role="presentation"></li>
-                    <li class="nav-item" role="presentation"></li>
-                    <li class="nav-item" role="presentation"></li>
-                </ul>
-            </div>
+        <div class="container"><a class="navbar-brand logo" href="#">LocalLoot</a><button class="navbar-toggler" data-toggle="collapse"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <footer class="page-footer dark"></footer>
         </div>
     </nav>
     <main class="page service-page">
@@ -37,42 +31,21 @@
                     <p>Which country you are currently in?</p>
                 </div>
                 <div class="row">
+                    {% for country in countries %}
                     <div class="col-md-6 col-lg-4">
-                        <div class="card"><img class="card-img-top w-100 d-block" src="assets/img/finland.jpg">
+                        <div class="card"><img class="card-img-top w-100 d-block" src="assets/img/{{ country.id }}.jpg" alt="{{ country.name }}">
                             <div class="card-body">
-                                <h4 class="card-title">Finland</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                                <h4 class="card-title">{{ country.name }}</h4>
                             </div>
-                            <div><button class="btn btn-outline-primary btn-sm" type="button">I'm here</button></div>
+                            <div>
+                                <form action="/trip" method="get" enctype="application/x-www-form-urlencoded">
+                                    <input type="checkbox" name="country" value="{{ country.id }}" style="display: none; visibility: hidden" checked>
+                                    <button class="btn btn-outline-primary btn-sm" type="submit">I'm here</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card"><img class="card-img-top w-100 d-block" src="assets/img/Germany.jpg">
-                            <div class="card-body">
-                                <h4 class="card-title">Germany</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
-                            </div>
-                            <div><button class="btn btn-outline-primary btn-sm" type="button">I'm here</button></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card"><img class="card-img-top w-100 d-block" src="assets/img/Russia.jpg">
-                            <div class="card-body">
-                                <h4 class="card-title">Russia</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
-                            </div>
-                            <div><button class="btn btn-outline-primary btn-sm" type="button">I'm here</button></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card"><img class="card-img-top w-100 d-block" src="assets/img/France.jpg">
-                            <div class="card-body">
-                                <h4 class="card-title">France</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
-                            </div>
-                            <div><button class="btn btn-outline-primary btn-sm" type="button">I'm here</button></div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
