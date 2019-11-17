@@ -6,7 +6,7 @@ class Trip(models.Model):
     """
     A trip description and results of recommendation system (JSON-encoded)
     """
-    id = models.TextField(null=False)
+    id = models.TextField(primary_key=True)
 
     home_country = models.TextField(null=False, help_text='Country reference')
     interests = pgmodels.ArrayField(models.TextField(), null=False, help_text='List of Category references')

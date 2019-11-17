@@ -5,7 +5,7 @@ class Product(models.Model):
     """
     A product the user can buy
     """
-    id = models.TextField(null=False)
+    id = models.TextField(primary_key=True)
     id_category_in_country = models.TextField(null=False)
     name = models.TextField(null=True, default=None)
     description = models.TextField(null=True, default=None)
