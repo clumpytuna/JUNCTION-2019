@@ -32,10 +32,7 @@ def _generate_trip(trip: Trip) -> Trip:
     # Iterate over categories in countries
     previous_category_in_country = None
     for category_in_country in category_in_country_rs:
-        if not(
-                previous_category_in_country is None or
-                category_in_country.id_category == previous_category_in_country.id_category
-        ):
+        if not (previous_category_in_country is None) and category_in_country.id_category == previous_category_in_country.id_category:
             continue
         previous_category_in_country = category_in_country
         result[category_in_country.id_country].append(category_in_country)
