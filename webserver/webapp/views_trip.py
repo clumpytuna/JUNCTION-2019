@@ -71,13 +71,13 @@ def _categories() -> list:
     """
     Get a list of all available categories
     """
-    # categories_rs = Category.objects.all()
+    categories_rs = Category.objects.all()
     result = [
         {
-            'name': 'a', # category.name,
-            'id': category, # category.id,
+            'name': category.name,
+            'id': category.id,
         }
-        for category in range(2) # categories_rs
+        for category in categories_rs
     ]
     return result
 
@@ -86,12 +86,12 @@ def _destinations() -> list:
     """
     Get a list of all available countries
     """
-    # countries_rs = Country.objects.all()
+    countries_rs = Country.objects.all()
     result = [
         {
-            'name': 'c', # country.name,
-            'id': country # country.id,
+            'name': country.name,
+            'id': country.id,
         }
-        for country in range(2) # countries_rs
+        for country in countries_rs
     ]
     return result
