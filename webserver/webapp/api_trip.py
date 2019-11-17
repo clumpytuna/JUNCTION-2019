@@ -47,11 +47,11 @@ def _generate_trip(trip: Trip) -> Trip:
         for i in range(len(result[country_id])):
             category_in_country = result[country_id][i]
             category = Category.objects.get(category_in_country.id_category)
-            products = Product.objects.all().filter(id_category_in_country=category_in_country.id)
+            products = Product.objects.all().filter(id_category=category.id, id_country=country_id)
             result_for_category_in_country = {
                 'id_category': category_in_country.id,
                 'name': category.name,
-                'description': category.name,
+                'description': category.description,
                 'price': category_in_country.price,
                 'products': [
                     {
