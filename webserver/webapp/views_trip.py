@@ -44,6 +44,8 @@ def trip_step(request: Request):
             'hc': home_country,
             'categories': _categories(),
         }))
+    if type(interest_ids) == str:
+        interest_ids = [interest_ids]
 
     destinations = parameters.get('dst')
     if destinations is None:
@@ -52,6 +54,8 @@ def trip_step(request: Request):
             'interests': interest_ids,
             'countries': _destinations(),
         }))
+    if type(destinations) == str:
+        destinations = [destinations]
 
     trip = api_trip.create_trip(home_country, interest_ids, destinations)
     return HttpResponseRedirect('/trip?id={}'.format(trip.id))
