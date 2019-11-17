@@ -33,7 +33,7 @@
         <section class="clean-block features">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">Optimal Products for {{ country.name }}</h2>
+                    <h2 class="text-info">Top goods to buy in {{ country.name }}</h2>
                 </div>
                 <div class="card">
                     <div class="card-header"><!--Accordion wrapper-->
@@ -91,8 +91,8 @@
               <tr>
               	<th class="th-lg"><a>Name<i class="fas fa-sort ml-1"></i></a></th>
                 <th class="th-lg"><a>Description<i class="fas fa-sort ml-1"></i></a></th>
-                <th class="th-lg"><a>Home Price<i class="fas fa-sort ml-1"></i></a></th>
-                <th class="th-lg"><a>Local Price<i class="fas fa-sort ml-1"></i></a></th>
+                <th class="th-lg"><a>Price in {{ home_country }}<i class="fas fa-sort ml-1"></i></a></th>
+                <th class="th-lg"><a>Price in {{ country.name }}<i class="fas fa-sort ml-1"></i></a></th>
                 <th class="th-lg"><a>Savings or Expenses<i class="fas fa-sort ml-1"></i></a></th>
               </tr>
             </thead>
@@ -104,9 +104,18 @@
               <tr>
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
-                <td>{{ product.home_price }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.savings }}</td>
+                {% if product.home_price > product.price %}
+                <td><span style="color: #a52019; ">{{ product.home_price }}</span></td>
+                <td><span style="color: #317f43; ">{{ product.price }}</span></td>
+                {% else %}
+                <td><span style="color: #317f43; ">{{ product.home_price }}</span></td>
+                <td><span style="color: #a52019; ">{{ product.price }}</span></td>
+                {% endif %}
+                {% if product.savings > 0 %}
+                <td><span style="color: #317f43; ">{{ product.savings }}%</span></td>
+                {% else %}
+                <td><span style="color: #a52019; ">{{ product.savings }}%</span></td>
+                {% endif %}
               </tr>
               {% endfor %}
             </tbody>

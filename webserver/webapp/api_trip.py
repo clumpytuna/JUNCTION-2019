@@ -61,9 +61,9 @@ def _generate_trip(trip: Trip) -> Trip:
                         'id': product.id,
                         'name': product.name,
                         'description': product.description,
-                        'price': product.price,
-                        'home_price': 'Not available' if home_price is None else str(home_price),
-                        'savings': 'Not available' if home_price is None else str(int(((float(home_price) - float(product.price)) / float(home_price)) * 100)) + '%',
+                        'price': int(product.price),
+                        'home_price': 'Not available' if home_price is None else int(home_price),
+                        'savings': 'Not available' if home_price is None else int(((float(home_price) - float(product.price)) / float(home_price)) * 100),
                         'link': product.link,
                     }
                     for product in products

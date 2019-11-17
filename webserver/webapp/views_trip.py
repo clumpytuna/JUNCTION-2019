@@ -88,7 +88,9 @@ def _trip_to_view_in_country(trip: Trip, country_id: str) -> dict:
     """
     country_index = trip.countries.index(country_id)
     country = Country.objects.get(id=country_id)
+    home_country = Country.objects.get(id=trip.home_country)
     return {
+        'home_country': home_country.name,
         'categories': json.loads(trip.results[country_index]),
         'country': {
             'id': country.id,
