@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Register - LocalLoot</title>
+    <title>Home - LocalLoot</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
@@ -23,29 +23,89 @@
             <footer class="page-footer dark"></footer>
         </div>
     </nav>
-    <main class="page registration-page">
-        <section class="clean-block clean-form dark">
+    <main class="page landing-page">
+        <section class="clean-block clean-hero" style="background-image: url(&quot;assets/img/finland.jpg&quot;); color: rgba(9, 162, 255, 0.85);">
+            <div class="text">
+                <h1 style="padding-top: 50%;">Discover your favourite products at cheap local prices as you travel</h1>
+                <p style="padding-top: 25%">
+                    <form id="categories_selection_form" enctype="application/x-www-form-urlencoded" method="get" action="/step">
+                        <div>
+                            <select class="browser-default custom-select custom-select-lg mb-3" name="hc">
+                                <option selected>Choose your home country</option>
+                                {% for country in countries %}
+                                <option value={{ country.id }}>{{ country.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button class="btn btn-outline-light btn-lg" type="submit" style="padding: 8px 2px;">Let's Go!</button>
+                    </form>
+                </p>
+            </div>
+        </section>
+        <section class="clean-block features">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">Landing Page</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+                    <h2 class="text-info">Features</h2>
                 </div>
-                <form>
-                    <div class="form-group"><label for="email">Country</label><select class="form-control"><optgroup label="This is a group"><option value="12" selected="">This is item 1</option><option value="13">This is item 2</option><option value="14">This is item 3</option></optgroup></select></div>
-                    <button
-                        class="btn btn-primary btn-block" type="submit">Let's GO!</button>
-                </form>
+                <div class="row justify-content-center">
+                    <div class="col-md-5 feature-box"><i class="icon-star icon"></i>
+                        <h4>Simple</h4>
+                        <p>No registrations, settings or extensive forms. You'll get response in just a few clicks.</p>
+                    </div>
+                    <div class="col-md-5 feature-box"><i class="icon-pencil icon"></i>
+                        <h4>Customizable</h4>
+                        <p>Highlight your favourite product categories, and we'll scan through them the most.</p>
+                    </div>
+                    <div class="col-md-5 feature-box"><i class="icon-screen-smartphone icon"></i>
+                        <h4>Cooperative</h4>
+                        <p>Got incorrect response? Don't worry - we're always ready to listen to you.</p>
+                    </div>
+                    <div class="col-md-5 feature-box"><i class="icon-refresh icon"></i>
+                        <h4>Multiple Countries at once</h4>
+                        <p>Visiting multiple countries or just want to compare prices in all of them at once? We get you covered.</p>
+                    </div>
+                </div>
             </div>
-            <section class="clean-block clean-form dark">
-                <div class="container">
-                    <div class="block-heading"></div>
+        </section>
+        <section class="clean-block about-us">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">About Us</h2>
+                    <p>We're obsessed about improving our shooping spendings. Anytime. Everywhere.</p>
                 </div>
-            </section>
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card clean-card text-center"><img class="card-img-top w-100 d-block" src="assets/img/avatars/avatar1.jpg">
+                            <div class="card-body info">
+                                <h4 class="card-title">Ivan Leskin</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <div class="icons"><a href="#"><i class="icon-social-facebook"></i></a><a href="#"><i class="icon-social-instagram"></i></a><a href="#"><i class="icon-social-twitter"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card clean-card text-center"><img class="card-img-top w-100 d-block" src="assets/img/avatars/avatar2.jpg">
+                            <div class="card-body info">
+                                <h4 class="card-title">Michail Anukhin</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <div class="icons"><a href="#"><i class="icon-social-facebook"></i></a><a href="#"><i class="icon-social-instagram"></i></a><a href="#"><i class="icon-social-twitter"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card clean-card text-center"><img class="card-img-top w-100 d-block" src="assets/img/avatars/avatar3.jpg">
+                            <div class="card-body info">
+                                <h4 class="card-title">Ivan Provilkov</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <div class="icons"><a href="#"><i class="icon-social-facebook"></i></a><a href="#"><i class="icon-social-instagram"></i></a><a href="#"><i class="icon-social-twitter"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
-    <div class="footer-dark" position="fixed" bottom="0">
-        <footer></footer>
-    </div>
+    <footer class="page-footer dark"></footer>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-animation.js"></script>

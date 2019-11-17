@@ -5,7 +5,7 @@ from webapp.views import IndexView
 
 
 urlpatterns = [
-    url(r'^$', IndexView.as_view()),
+    url(r'^$', trip_step),
     url(r'^step$', trip_step),
     url(r'^trip$', trip_get),
 ]

@@ -9,7 +9,6 @@ from webapp import api_trip
 from webapp.Category import Category
 from webapp.Country import Country
 from webapp.Trip import Trip
-from webapp.views import IndexView
 
 
 @api_view(['GET'])
@@ -35,7 +34,9 @@ def trip_step(request: Request):
 
     home_country = parameters.get('hc')
     if home_country is None:
-        return HttpResponseRedirect('/')
+        return HttpResponse(render_to_string('index.html', {
+            'countries': _destinations(),
+        }))
 
     interest_ids = parameters.get('in')
     if interest_ids is None:
