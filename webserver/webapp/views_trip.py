@@ -44,24 +44,20 @@ def trip_step(request: Request):
             'countries': _destinations(),
         }))
 
-    interest_ids = parameters.get('in')
-    if interest_ids is None:
+    interest_ids = parameters.getlist('in')
+    if len(interest_ids) == 0:
         return HttpResponse(render_to_string('step_in.html', {
             'hc': home_country,
             'categories': _categories(),
         }))
-    if type(interest_ids) == str:
-        interest_ids = [interest_ids]
 
-    destinations = parameters.get('dst')
-    if destinations is None:
+    destinations = parameters.getlist('dst')
+    if len(destinations) == 0:
         return HttpResponse(render_to_string('step_dst.html', {
             'hc': home_country,
             'interests': interest_ids,
             'countries': _destinations(),
         }))
-    if type(destinations) == str:
-        destinations = [destinations]
 
     trip = api_trip.create_trip(home_country, interest_ids, destinations)
     return HttpResponseRedirect('/trip?id={}'.format(trip.id))
